@@ -32,3 +32,11 @@ To run the game locally, follow these steps:
 3. **Run the game:**
     ```bash
     python flappy_bird.py
+
+### Credits
+
+*  Pygame: For the game development framework.
+*  NEAT: For the neuroevolution algorithm.
+*  Assets: Sprites and backgrounds sourced from OpenGameArt.org.
+
+
