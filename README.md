@@ -1,6 +1,6 @@
 # Flappy Bird Game
 
-![Flappy Bird Demo](demo.gif)
+![Flappy Bird Demo](flappy_bird.gif)
 
 ## Overview
 
