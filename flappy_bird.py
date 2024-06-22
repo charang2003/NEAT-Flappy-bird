@@ -5,6 +5,7 @@ import os
 import random
 pygame.font.init()
 
+# Constants
 WIN_WIDTH = 500
 WIN_HEIGHT = 800
 
@@ -17,9 +18,9 @@ PIPE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "pipe
 BASE_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "base.png")))
 BG_IMG = pygame.transform.scale2x(pygame.image.load(os.path.join("imgs", "bg.png")))
 
-STAT_FONT = pygame.font.SysFont("comicsans", 50) 
+STAT_FONT = pygame.font.SysFont("comicsans", 50)
 
-
+# Classes
 class Bird:
     IMGS = BIRD_IMGS
     MAX_ROTATION = 25
@@ -86,7 +87,7 @@ class Bird:
     def get_mask(self):
         return pygame.mask.from_surface(self.img)
     
-class Pipe():
+class Pipe:
     GAP = 200
     VEL = 5
 
@@ -163,7 +164,7 @@ def blitRotateCenter(surf, image, topleft, angle):
 
     surf.blit(rotated_image, new_rect.topleft)
 
-def draw_window(win, bird, pipes, base, score):
+def draw_window(win, birds, pipes, base, score):
     win.blit(BG_IMG, (0, 0))
     for pipe in pipes:
         pipe.draw(win)
@@ -206,25 +207,25 @@ def main(genomes, config):
                 
         pipe_ind = 0
         if len(birds) > 0:
-            if len(pipes) > 1 and birds[0].x + pipes[0].PIPE_TOP.get_width():
+            if len(pipes) > 1 and birds[0].x > pipes[0].x + pipes[0].PIPE_TOP.get_width():
                 pipe_ind = 1
                 
         else:
             run = False
             break
                 
-        for x, bird in  enumerate(birds):
+        for x, bird in enumerate(birds):
             bird.move()
             ge[x].fitness += 0.1
             
-            output = nets[x].activate((bird.y,abs(bird.y - pipes[pipe_ind].height),abs(bird.y - pipes[pipe_ind].bottom)))
+            output = nets[x].activate((bird.y, abs(bird.y - pipes[pipe_ind].height), abs(bird.y - pipes[pipe_ind].bottom)))
             
             if output[0] > 0.5:
                 bird.jump()
             
-        bird.move()
         base.move()
         
+        # Pipes
         rem = []
         add_pipe = False
         for pipe in pipes:
@@ -253,14 +254,12 @@ def main(genomes, config):
             pipes.remove(r)
             
         for x, bird in enumerate(birds):
-        
             if bird.y + bird.img.get_height() >= 730 or bird.y < 0:
                 birds.pop(x)
                 nets.pop(x)
                 ge.pop(x)
 
         draw_window(win, birds, pipes, base, score)
-        
 
 def run(config_path):
     config = neat.config.Config(neat.DefaultGenome, neat.DefaultReproduction, neat.DefaultSpeciesSet, neat.DefaultStagnation, config_path)
@@ -272,7 +271,6 @@ def run(config_path):
     p.add_reporter(stats)
     
     winner = p.run(main, 50)
-    pass
 
 if __name__ == "__main__":
     local_dir = os.path.dirname(__file__)
