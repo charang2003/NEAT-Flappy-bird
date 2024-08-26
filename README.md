@@ -22,13 +22,13 @@ The NEAT Flappy Bird project implements a neural network approach to train agent
 
 ## Gameplay
 
-![Flappy Bird](path_to_your_gif.gif)
+![Flappy Bird](flappy_bird.gif)
 
 ## Game Components
 
-- **Snake**: ![Snake](path/to/snake_image.png)
-- **Food**: ![Food](path/to/food_image.png)
-- **Score**: ![Score](path/to/score_image.png)
+- **Bird**: ![Bird](assets\bird.png)
+- **Generation**: ![Generation](assets\gen.png)
+- **Score**: ![Score](assets\score.png)
 
 ## Features
 
